@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SupportAI — Customer Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── Sidebar ─────────────────────────────────────────── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+        </div>
+        <span class="brand-name">SupportAI</span>
+      </div>
+      <button class="sidebar-close" id="sidebarClose" aria-label="Close sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <button class="new-chat-btn" id="newChatBtn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      New Conversation
+    </button>
+
+    <div class="sidebar-section-label">Recent Chats</div>
+    <div class="chat-history" id="chatHistory"></div>
+
+    <div class="sidebar-footer">
+      <div class="model-badge">
+        <div class="model-dot"></div>
+        <span id="modelLabel">gpt-5-mini · Fine-tuned</span>
+      </div>
+      <div class="powered-by">Powered by Azure OpenAI</div>
+    </div>
+  </aside>
+
+  <!-- ── Main ────────────────────────────────────────────── -->
+  <main class="main">
+
+    <!-- Top bar -->
+    <header class="topbar">
+      <button class="menu-btn" id="menuBtn" aria-label="Open sidebar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <div class="topbar-center">
+        <div class="agent-info">
+          <div class="agent-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+              <circle cx="12" cy="8" r="4"/>
+              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
+            </svg>
+          </div>
+          <div class="agent-meta">
+            <span class="agent-name">Support Assistant</span>
+            <span class="agent-status" id="agentStatus">
+              <span class="status-dot online"></span>Online
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="clearBtn" title="Clear chat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"/>
+            <path d="M19 6l-1 14H6L5 6"/>
+            <path d="M10 11v6M14 11v6"/>
+            <path d="M9 6V4h6v2"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chat window -->
+    <section class="chat-window" id="chatWindow">
+
+      <!-- Welcome screen -->
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-icon">
+          <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="24" cy="24" r="20"/>
+            <path d="M16 20c0-4.4 3.6-8 8-8s8 3.6 8 8c0 4-2.4 7.4-6 8.6V30h-4v-1.4c-3.6-1.2-6-4.6-6-8.6z"/>
+            <line x1="24" y1="34" x2="24" y2="36"/>
+          </svg>
+        </div>
+        <h1 class="welcome-title">How can I help you today?</h1>
+        <p class="welcome-sub">I'm your AI-powered support assistant. Ask me anything about our products, services, or troubleshooting steps.</p>
+        <div class="suggestion-grid">
+          <button class="suggestion-card" data-prompt="I need help with my account settings">
+            <span class="suggestion-icon">⚙️</span>
+            <span class="suggestion-text">Account settings help</span>
+          </button>
+          <button class="suggestion-card" data-prompt="How do I track my order?">
+            <span class="suggestion-icon">📦</span>
+            <span class="suggestion-text">Track my order</span>
+          </button>
+          <button class="suggestion-card" data-prompt="I want to request a refund">
+            <span class="suggestion-icon">💳</span>
+            <span class="suggestion-text">Request a refund</span>
+          </button>
+          <button class="suggestion-card" data-prompt="I'm having a technical issue with the app">
+            <span class="suggestion-icon">🛠️</span>
+            <span class="suggestion-text">Technical support</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="messages" id="messages"></div>
+    </section>
+
+    <!-- Input bar -->
+    <footer class="input-bar">
+      <div class="input-container">
+        <textarea
+          id="userInput"
+          class="input-field"
+          placeholder="Type your message…"
+          rows="1"
+          maxlength="2000"
+          aria-label="Message input"
+        ></textarea>
+        <div class="input-actions">
+          <span class="char-count" id="charCount">0 / 2000</span>
+          <button class="send-btn" id="sendBtn" disabled aria-label="Send message">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"/>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <p class="disclaimer">AI may make mistakes. For urgent issues, contact human support.</p>
+    </footer>
+  </main>
+
+  <!-- Overlay for mobile sidebar -->
+  <div class="overlay" id="overlay"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
