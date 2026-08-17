@@ -65,7 +65,7 @@ app.post("/api/chat", chatLimiter, async (req, res) => {
       model: DEPLOYMENT,
       messages: conversation,
       max_completion_tokens: 800,
-      temperature: 1,
+      temperature: 1,  // requirement of 1 for Foundry
       stream: true,
     });
 
