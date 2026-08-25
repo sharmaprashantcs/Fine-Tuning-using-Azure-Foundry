@@ -11,8 +11,8 @@ phases:
   build:
     commands:
       - echo Verifying public assets...
-      - ls -la customer-support-bot/public/ && echo "Found at customer-support-bot/public/" || (ls -la public/ && echo "Found at public/") || echo "WARNING: public/ not found in either path"
-      - find . -name "index.html" 2>/dev/null || echo "index.html not found anywhere"
+      - find . -name "index.html" 2>/dev/null && echo "index.html found" || echo "index.html NOT found"
+      - ls -la customer-support-bot/public/ 2>/dev/null || ls -la public/ 2>/dev/null || echo "public dir not found"
 
   post_build:
     commands:
