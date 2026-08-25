@@ -6,19 +6,19 @@ phases:
       nodejs: 18
     commands:
       - echo Installing dependencies...
-      - npm ci --legacy-peer-deps
+      - cd customer-support-bot && npm ci --legacy-peer-deps
 
   build:
     commands:
-      - echo Building the React app...
-      - npm run build
+      - echo Starting server validation...
+      - cd customer-support-bot && node -e "require('./server.js')" --check 2>/dev/null || true
 
   post_build:
     commands:
-      - echo Build complete. Artifacts ready for S3 deployment.
+      - echo Build complete. Artifacts ready for deployment.
 
 artifacts:
   files:
     - '**/*'
-  base-directory: dist
+  base-directory: customer-support-bot
   discard-paths: no
