@@ -22,3 +22,7 @@ artifacts:
     - '**/*'
   base-directory: customer-support-bot
   discard-paths: no
+
+  # secondary-artifacts can be used to push only the static frontend to S3
+  # if you want index.html at the S3 bucket root, use base-directory below:
+  # base-directory: customer-support-bot/public
