@@ -10,8 +10,8 @@ phases:
 
   build:
     commands:
-      - echo Starting server validation...
-      - cd customer-support-bot && node -e "require('./server.js')" --check 2>/dev/null || true
+      - echo Verifying public assets...
+      - ls -la customer-support-bot/public/
 
   post_build:
     commands:
@@ -19,10 +19,10 @@ phases:
 
 artifacts:
   files:
-    - '**/*'
+    - 'server.js'
+    - 'package.json'
+    - 'package-lock.json'
+    - 'public/**/*'
+    - 'node_modules/**/*'
   base-directory: customer-support-bot
   discard-paths: no
-
-  # secondary-artifacts can be used to push only the static frontend to S3
-  # if you want index.html at the S3 bucket root, use base-directory below:
-  # base-directory: customer-support-bot/public
